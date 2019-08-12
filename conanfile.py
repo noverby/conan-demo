@@ -16,22 +16,20 @@ def get_version():
 class DemoConan(ConanFile):
     name = "demo"
     version = get_version()
-    url = "http://gitlab.com/aivero/public/conan/conan-demo"
+    url = "http://gitlab.com/aivero/public/conan/conan-" + name
     license = "MIT"
     description = ("Demo conan package")
     settings = "os", "arch", "compiler", "build_type"
     exports_sources = ["CMakeLists.txt", "src/*"]
+    generators = "env"
+
+    def requirements(self):
+        self.requires("env-generator/0.1@%s/%s" % (self.user, self.channel))
 
     def build(self):
-        vars = {
-            "CFLAGS": "-fdebug-prefix-map=%s=." % self.source_folder,
-            "CXXFLAGS": "-fdebug-prefix-map=%s=." % self.source_folder,
-        }
-        with tools.environment_append(vars):
-            cmake = CMake(self)
-            cmake.configure()
-            cmake.build()
-            cmake.install()
+        cmake = CMake(self)
+        cmake.configure()
+        cmake.install()
 
     def package(self):
         if self.settings.build_type == "Debug":
@@ -39,8 +37,5 @@ class DemoConan(ConanFile):
             self.copy("*.h*", "src")
 
     def package_info(self):
+        self.cpp_info.libs = tools.collect_libs(self)
         self.cpp_info.srcdirs.append("src")
-        self.env_info.PATH.append(os.path.join(self.package_folder, "bin"))
-        self.env_info.PKG_CONFIG_PATH.append(os.path.join(self.package_folder, "lib", "pkgconfig"))
-        for file in os.listdir(os.path.join(self.package_folder, "lib", "pkgconfig")):
-            setattr(self.env_info, "PKG_CONFIG_%s_PREFIX" % file[:-3].replace(".", "_").replace("-", "_").upper(), self.package_folder)
