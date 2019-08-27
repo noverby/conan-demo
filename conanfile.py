@@ -7,8 +7,10 @@ def get_version():
     try:
         if git.get_tag():
             return git.get_tag()
-        else:
+        elif not git.get_branch().startswith("HEAD"):
             return git.get_branch()
+        else:
+            return git.run("symbolic-ref refs/remotes/origin/HEAD")[20:]
     except:
         return None
 
