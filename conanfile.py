@@ -24,7 +24,7 @@ class DemoConan(ConanFile):
     generators = "env"
 
     def requirements(self):
-        self.requires("env-generator/0.1@%s/%s" % (self.user, self.channel))
+        self.requires("env-generator/0.1@%s/stable" % self.user)
 
     def build(self):
         cmake = CMake(self)
