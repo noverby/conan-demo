@@ -1,15 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import os
 from conans import ConanFile, tools, CMake
 
 def get_version():
     git = tools.Git()
     try:
-        if git.get_tag() and not git.get_branch():
+        if git.get_tag():
             return git.get_tag()
         else:
-            return "master"
+            return git.get_branch()
     except:
         return None
 
