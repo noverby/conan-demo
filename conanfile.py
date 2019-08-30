@@ -2,19 +2,9 @@
 # -*- coding: utf-8 -*-
 from conans import ConanFile, tools, CMake
 
-def get_version():
-    git = tools.Git()
-    try:
-        if git.get_tag() and git.get_branch().endswith("(no branch)"):
-            return git.get_tag()
-        else:
-            return git.get_branch()
-    except:
-        return None
-
 class DemoConan(ConanFile):
     name = "demo"
-    version = get_version()
+    version = "1.0.0"
     url = "http://gitlab.com/aivero/public/conan/conan-" + name
     license = "MIT"
     description = ("Demo conan package")
