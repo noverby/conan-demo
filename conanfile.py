@@ -2,9 +2,17 @@
 # -*- coding: utf-8 -*-
 from conans import ConanFile, tools, CMake
 
+def get_version():
+    git = tools.Git()
+    try:
+        tag = git.get_tag()
+        return tag if tag else "4.3.0"
+    except:
+        return None
+
 class DemoConan(ConanFile):
     name = "demo"
-    version = "1.0.0"
+    version = get_version()
     url = "http://gitlab.com/aivero/public/conan/conan-" + name
     license = "MIT"
     description = ("Demo conan package")
