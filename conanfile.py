@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 from conans import ConanFile, tools, CMake
 
 def get_version():
@@ -21,8 +19,10 @@ class DemoConan(ConanFile):
     generators = "env"
 
     def build_requirements(self):
-        self.build_requires("env-generator/0.1@%s/stable" % self.user)
-        self.build_requires("cmake/3.15.3@%s/stable" % self.user)
+        self.build_requires("cmake/[>=3.15.3]@%s/stable" % self.user)
+
+    def requirements(self):
+        self.requires("env-generator/[>=1.0.0]@%s/stable" % self.user)
 
     def build(self):
         cmake = CMake(self, generator="Ninja")
@@ -33,7 +33,3 @@ class DemoConan(ConanFile):
         if self.settings.build_type == "Debug":
             self.copy("*.cpp", "src")
             self.copy("*.hpp", "src")
-
-    def package_info(self):
-        self.cpp_info.libs = tools.collect_libs(self)
-        self.cpp_info.srcdirs.append("src")
