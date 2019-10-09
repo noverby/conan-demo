@@ -1,16 +1,8 @@
 from conans import ConanFile, tools, CMake
 
-def get_version():
-    git = tools.Git()
-    try:
-        tag = git.get_tag()
-        return tag if tag else "1.0.0"
-    except:
-        return None
-
 class DemoConan(ConanFile):
     name = "demo"
-    version = get_version()
+    version = os.environ["CI_COMMIT_REF_NAME"]
     url = "http://gitlab.com/aivero/public/conan/conan-" + name
     license = "MIT"
     description = ("Demo conan package")
