@@ -1,4 +1,4 @@
-prefix=@DEST_DIR@
+prefix=@prefix@
 exec_prefix=${prefix}
 libdir=${prefix}/lib
 includedir=${prefix}/include

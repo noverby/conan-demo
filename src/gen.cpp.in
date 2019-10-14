@@ -2,5 +2,5 @@
 
 void gen_func(void)
 {
-    std::cout << "@MESSAGE@" << std::endl;
+    std::cout << "@message@" << std::endl;
 }
