@@ -14,13 +14,11 @@ class DemoConan(ConanFile):
     generators = "env"
 
     def build_requirements(self):
+        self.build_requires("env-generator/1.0.0@%s/stable" % self.user)
         if self.options.build_system == "meson":
             self.build_requires("meson/[>=0.51.2]@%s/stable" % self.user)
         elif self.options.build_system == "cmake":
             self.build_requires("cmake/[>=3.15.3]@%s/stable" % self.user)
-
-    def requirements(self):
-        self.requires("env-generator/[>=1.0.0]@%s/stable" % self.user)
 
     def build(self):
         if self.options.build_system == "meson":
