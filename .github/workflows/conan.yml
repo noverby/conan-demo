@@ -1,4 +1,4 @@
-name: Python application
+name: Conan Build and Upload
 
 on: [push]
 
@@ -19,4 +19,5 @@ jobs:
         pip install conan
     - name: Run Conan Create
       run: |
+        conan config install https://github.com/aivero/conan-config.git
         conan create . aivero/stable
