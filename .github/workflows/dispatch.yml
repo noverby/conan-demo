@@ -1,6 +1,6 @@
 name: Dispatch conan builds
 
-on: [push]
+on: [push, create]
 
 jobs:
   build:
@@ -11,3 +11,4 @@ jobs:
         with:
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
           event-type: conan
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
