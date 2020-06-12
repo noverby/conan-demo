@@ -7,13 +7,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python
+      with:
+        ref: ${{ github.event.client_payload.ref }}
+    - name: Setup Python
       uses: actions/setup-python@v2
       with:
         python-version: '3.x'
     - name: Install dependencies
       run: python -m pip install --upgrade pip conan
-    - name: Run Conan Create
+    - name: Conan Create
       run: |
         conan config install https://gitlab.com/aivero/public/conan/conan-config.git
         conan config set general.default_profile=linux_x86_64
