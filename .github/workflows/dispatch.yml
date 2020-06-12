@@ -4,9 +4,10 @@ on: [push]
 
 jobs:
   build:
+    runs-on: ubuntu-latest
     steps:
       - name: Repository Dispatch
         uses: peter-evans/repository-dispatch@v1
         with:
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
-          event-type: my-event
+          event-type: conan
