@@ -15,5 +15,5 @@ jobs:
       run: python -m pip install --upgrade pip conan
     - name: Run Conan Create
       run: |
-        conan config install https://github.com/aivero/conan-config.git
+        conan config install https://gitlab.com/aivero/public/conan/conan-config.git
         conan create . aivero/stable
