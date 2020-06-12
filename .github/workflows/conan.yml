@@ -16,4 +16,5 @@ jobs:
     - name: Run Conan Create
       run: |
         conan config install https://gitlab.com/aivero/public/conan/conan-config.git
+        conan config set general.default_profile=linux_x86_64
         conan create . aivero/stable
